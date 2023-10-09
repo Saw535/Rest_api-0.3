@@ -1,0 +1,40 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    environment:
+      SECRET_KEY: "SECRET_KEY"
+      DATABASE_URL: "postgresql://User:<password>@postgres:5432/postgres"
+      CLOUDINARY_CLOUD_NAME: "CLOUDINARY_CLOUD_NAME"
+      CLOUDINARY_API_KEY: "CLOUDINARY_API_KEY"
+      CLOUDINARY_API_SECRET: "CLOUDINARY_API_SECRET"
+      MAIL_USERNAME: "MAIL_USERNAME"
+      MAIL_PASSWORD: "MAIL_PASSWORD"
+      MAIL_FROM: "MAIL_FROM"
+      MAIL_PORT: 465
+      MAIL_SERVER: "smtp.meta.ua"
+      MAIL_FROM_NAME: "Example email"
+      MAIL_STARTTLS: "False"
+      MAIL_SSL_TLS: "True"
+      USE_CREDENTIALS: "True"
+      VALIDATE_CERTS: "True"
+    volumes:
+      - D:/Test-20:/app
+
+  postgres:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: POSTGRES_USER
+      POSTGRES_PASSWORD: POSTGRES_PASSWORD
+      POSTGRES_DB: POSTGRES_DB
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
